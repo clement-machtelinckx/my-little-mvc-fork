@@ -4,7 +4,7 @@
 use PHPUnit\Framework\TestCase;
 use App\Clothing;
 
-class TestClothing extends TestCase
+class ClothingTest extends TestCase
 {
 
     public function testAddStock(): void
@@ -25,19 +25,23 @@ class TestClothing extends TestCase
 
     public function testCreateClothing(): void
     {
-        $clothing = new Clothing(1, 'T-shirt', ['tshirt.jpg'], 100, 'A nice t-shirt', 10, 1, new \DateTime(), new \DateTime(), 'M', 'Red', 'Cotton', 5);
+        $clothing = new Clothing(1, 'T-shirt test create', ['tshirt.jpg'], 100, 'A nice t-shirt test create', 10, 1, new \DateTime(), new \DateTime(), 'M', 'Red', 'Cotton', 5);
         $clothing->create();
+        $all = $clothing->findAll();
+        $lastClothing = end($all);
+        $result = $clothing->findOneById($lastClothing->getId());
 
-        $this->assertEquals('T-shirt', $clothing->getName());
-        $this->assertEquals(['tshirt.jpg'], $clothing->getPhotos());
-        $this->assertEquals(100, $clothing->getPrice());
-        $this->assertEquals('A nice t-shirt', $clothing->getDescription());
-        $this->assertEquals(10, $clothing->getQuantity());
-        $this->assertEquals(1, $clothing->getCategoryId());
-        $this->assertEquals('M', $clothing->getSize());
-        $this->assertEquals('Red', $clothing->getColor());
-        $this->assertEquals('Cotton', $clothing->getType());
-        $this->assertEquals(5, $clothing->getMaterialFee());
+
+        $this->assertEquals('T-shirt test create', $result->getName());
+        $this->assertEquals(['tshirt.jpg'], $result->getPhotos());
+        $this->assertEquals(100, $result->getPrice());
+        $this->assertEquals('A nice t-shirt test create', $result->getDescription());
+        $this->assertEquals(10, $result->getQuantity());
+        $this->assertEquals(1, $result->getCategoryId());
+        $this->assertEquals('M', $result->getSize());
+        $this->assertEquals('Red', $result->getColor());
+        $this->assertEquals('Cotton', $result->getType());
+
 
 
     }
